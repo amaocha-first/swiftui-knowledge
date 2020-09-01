@@ -16,6 +16,7 @@
 		78E06A4C24FDE2180040C689 /* swiftui_knowledgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E06A4B24FDE2180040C689 /* swiftui_knowledgeTests.swift */; };
 		78E06A5724FDE2180040C689 /* swiftui_knowledgeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E06A5624FDE2180040C689 /* swiftui_knowledgeUITests.swift */; };
 		78E06A6624FDEA900040C689 /* BindingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E06A6524FDEA900040C689 /* BindingView.swift */; };
+		78E06A6824FE000F0040C689 /* ObservedObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E06A6724FE000F0040C689 /* ObservedObjectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		78E06A5624FDE2180040C689 /* swiftui_knowledgeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftui_knowledgeUITests.swift; sourceTree = "<group>"; };
 		78E06A5824FDE2180040C689 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78E06A6524FDEA900040C689 /* BindingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingView.swift; sourceTree = "<group>"; };
+		78E06A6724FE000F0040C689 /* ObservedObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservedObjectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 			children = (
 				78E06A3824FDE2160040C689 /* StateView.swift */,
 				78E06A6524FDEA900040C689 /* BindingView.swift */,
+				78E06A6724FE000F0040C689 /* ObservedObjectView.swift */,
 			);
 			path = PropertyWrappers;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78E06A6824FE000F0040C689 /* ObservedObjectView.swift in Sources */,
 				78E06A3524FDE2160040C689 /* AppDelegate.swift in Sources */,
 				78E06A3724FDE2160040C689 /* SceneDelegate.swift in Sources */,
 				78E06A6624FDEA900040C689 /* BindingView.swift in Sources */,

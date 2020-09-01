@@ -90,3 +90,44 @@ struct CustomText: View {
     }
 }
 ```
+
+# ObservedObject
+
+`@State`だけではプロパティが乱立してしまうため、viewModel的な`@State`をまとめるようなことができる。
+例えば、以下のようなログインViewがあるとする。
+
+```swift
+struct ObservedObjectView: View {
+    @State private var username = ""
+    @State private var password = ""
+    
+    var body: some View {
+        VStack(spacing: 10) {
+            TextField("username", text: self.username)
+            TextField("password", text: self.password)
+        }
+    }
+}
+```
+
+これを、observedObjectを使って書くとこうなる。
+
+
+```swift
+struct ObservedObjectView: View {
+    @ObservedObject private var loginParam = ObservedLoginParam()
+    
+    var body: some View {
+        VStack(spacing: 10) {
+            TextField("username", text: self.$loginParam.username)
+            TextField("password", text: self.$loginParam.password)
+        }
+    }
+}
+
+final class ObservedLoginParam: ObservableObject {
+    @Published var username: String = ""
+    @Published var password: String = ""
+}
+```
+
