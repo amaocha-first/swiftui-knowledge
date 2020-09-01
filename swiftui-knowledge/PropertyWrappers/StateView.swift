@@ -10,6 +10,7 @@ import SwiftUI
 
 struct StateView: View {
     @State private var text = "before"
+
     var body: some View {
         VStack {
             Text(text)
@@ -26,6 +27,6 @@ struct StateView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        StateView()
     }
 }
