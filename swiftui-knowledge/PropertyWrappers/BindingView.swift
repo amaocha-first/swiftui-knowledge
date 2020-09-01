@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BindingView: View {
     @State private var text = "before"
-
+    
     var body: some View {
         VStack {
             CustomText(text: $text)
@@ -28,10 +28,15 @@ struct CustomText: View {
     @Binding var text: String
     
     var body: some View {
-        Text(text)
-            .fontWeight(.heavy)
-            .foregroundColor(.purple)
-            .shadow(radius: 1.0)
+        HStack {
+            Text(text)
+                .fontWeight(.heavy)
+                .foregroundColor(.purple)
+                .shadow(radius: 1.0)
+                .onTapGesture {
+                    self.text = "changed in child view."
+            }
+        }
     }
 }
 

@@ -70,3 +70,23 @@ struct CustomText: View {
     }
 }
 ```
+
+また、`Binding`で参照しているプロパティは子ビュー側から変更することもできます。
+```swift
+struct CustomText: View {
+    @Binding var text: String
+    
+    var body: some View {
+        HStack {
+            Text(text)
+                .fontWeight(.heavy)
+                .foregroundColor(.purple)
+                .shadow(radius: 1.0)
+                .onTapGesture {
+                    self.text = "changed in child view."
+                    ///子ビューからも参照している親ビューの値を変更することができる
+            }
+        }
+    }
+}
+```
