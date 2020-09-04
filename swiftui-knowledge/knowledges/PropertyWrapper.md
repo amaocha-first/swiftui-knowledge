@@ -131,7 +131,7 @@ final class ObservedLoginParam: ObservableObject {
 }
 ```
 
-# StateObject（iOS14.0以上）
+# StateObject（iOS14.0以降)
 
 上記の`ObservedObservedObject`を使うとViewの表示時に毎回初期化してしまう問題があるので、基本的には`@StateObject`を使うようにします。
 
@@ -179,3 +179,50 @@ struct ChildView: View {
     }
 }
 ```
+
+# EnvironmentObject
+
+View階層の中で共通のObservableObjectを持てるようにしたもの。
+`＠ObservedObject`は子Viewへデータを渡すのにinitを使用してViewの階層を辿っていく必要がありましたが、`＠EnvironmentObject`を使うとその必要なしに値を参照することができます。
+
+
+```swift
+final class UserEnvironment: ObservableObject {
+    @Published var username = "Test"
+    @Published var id = "12345"
+}
+
+struct EnvironmentView: View {
+    @EnvironmentObject var userEnv: UserEnvironment
+    @State var showOtherView = false
+    
+    var body: some View {
+        VStack {
+            Text(userEnv.username)
+                .onTapGesture {
+                    self.userEnv.username = "aaaaaaaa"
+                    self.showOtherView.toggle()
+                    
+            }.sheet(isPresented: $showOtherView) {
+                OtherView().environmentObject(self.userEnv)
+            }
+        }
+    }
+}
+
+struct OtherView: View {
+    @EnvironmentObject var userEnv: UserEnvironment
+
+    var body: some View {
+        Text(userEnv.username).onTapGesture {
+            self.userEnv.username = "bbbbbbb"
+        }
+    }
+}
+```
+
+一番親のViewを初期化するタイミングでEnvironmentObjectを入れてあげます。
+```swift
+EnvironmentView().environmentObject(UserEnvironment())
+```
+

@@ -8,41 +8,41 @@
 
 import SwiftUI
 
-final class Object: ObservableObject {
+final class UserEnvironment: ObservableObject {
     @Published var username = "Test"
     @Published var id = "12345"
 }
 
 struct EnvironmentView: View {
-    @EnvironmentObject var object: Object
+    @EnvironmentObject var userEnv: UserEnvironment
     @State var showOtherView = false
     
     var body: some View {
         VStack {
-            Text(object.username)
+            Text(userEnv.username)
                 .onTapGesture {
-                    self.object.username = "aaaaaaaa"    //objectの中身を変更
+                    self.userEnv.username = "aaaaaaaa"    //objectの中身を変更
                     self.showOtherView.toggle()
                     
             }.sheet(isPresented: $showOtherView) {
-                OtherView().environmentObject(self.object)
+                OtherView().environmentObject(self.userEnv)
             }
         }
     }
 }
 
 struct OtherView: View {
-    @EnvironmentObject var object: Object
+    @EnvironmentObject var userEnv: UserEnvironment
 
     var body: some View {
-        Text(object.username).onTapGesture {
-            self.object.username = "bbbbbbb"
+        Text(userEnv.username).onTapGesture {
+            self.userEnv.username = "bbbbbbb"
         }
     }
 }
 
 struct EnvironmentView_Previews: PreviewProvider {
     static var previews: some View {
-        EnvironmentView().environmentObject(Object())
+        EnvironmentView().environmentObject(UserEnvironment())
     }
 }
