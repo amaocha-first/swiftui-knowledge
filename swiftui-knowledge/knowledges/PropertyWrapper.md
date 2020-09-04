@@ -245,3 +245,37 @@ EnvironmentObjectView().environmentObject(UserSettings())
 - https://qiita.com/coe/items/0f0585f314ab2624f548
 - https://note.com/dngri/n/n26e807c880db
 
+# AppStorage(iOS14以降)
+Userdefaultsの値を直接やりとりできる。
+
+```swift
+struct ContentView: View {
+
+    @AppStorage(wrappedValue: "Tokyo", "currentCity")
+    var currentCity
+
+    var body: some View {
+        Text(currentCity).padding()
+        TextField("", text: $currentCity)
+    }
+
+}
+```
+
+https://qiita.com/MaShunzhe/items/40bf67cdd709c17b599f
+
+# SceneStorage(iOS14以降)
+iOS14以降では複数のSceneが存在していて、それぞれでそのシーンの状態を保存することができる。
+
+```swift
+struct textTabView: View {
+
+    @SceneStorage("postContent")
+    var postContent = "This is a draft..."
+
+    var body: some View {
+        TextEditor(text: $postContent)
+    }
+
+}
+```
