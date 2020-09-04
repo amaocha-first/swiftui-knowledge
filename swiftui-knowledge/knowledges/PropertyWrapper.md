@@ -91,7 +91,7 @@ struct CustomText: View {
 }
 ```
 
-# ObservedObject
+# ObservedObjectとPublished
 
 `@State`だけではプロパティが乱立してしまうため、viewModel的な`@State`をまとめるようなことができる。
 例えば、以下のようなログインViewがあるとする。
@@ -131,3 +131,51 @@ final class ObservedLoginParam: ObservableObject {
 }
 ```
 
+# StateObject（iOS14.0以上）
+
+上記の`ObservedObservedObject`を使うとViewの表示時に毎回初期化してしまう問題があるので、基本的には`@StateObject`を使うようにします。
+
+`@ObservedObject`で宣言するときは、親Viewで生成された`＠StateObject`が宣言されたObservableObjectを子Viewに渡す時に、子Viewでもその値を読み書きできるようにしたい場合などに使用されます。
+
+```swift
+final class Counter: ObservableObject {
+    @Published var count: Int = 0
+}
+
+//親View
+struct StateObjectView: View {
+    @State private var count = 0
+    
+    var body: some View {
+        VStack {
+            Text("ContentView")
+            Text("\(count)")
+            ChildView() 
+            //ChildViewは下のself.count += 1を行うと初期化されてしまうので、ChildViewの中のcounterは0に戻ってしまう。
+            Button("increment") {
+                self.count += 1
+            }
+        }
+        .padding()
+        .background(Color.red)
+    }
+}
+
+//子View
+struct ChildView: View {
+    @ObservedObject var counter = Counter()
+    //iOS14.0以降ではStateObjectが使えるので、そちらを使う。
+    
+    var body: some View {
+        VStack {
+            Text("CounterView")
+            Text("\(counter.count)")
+            Button("increment") {
+                self.counter.count += 1
+            }
+        }
+        .padding()
+        .background(Color.yellow)
+    }
+}
+```
