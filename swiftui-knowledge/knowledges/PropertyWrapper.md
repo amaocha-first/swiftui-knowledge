@@ -187,42 +187,45 @@ View階層の中で共通のObservableObjectを持てるようにしたもの。
 
 
 ```swift
-final class UserEnvironment: ObservableObject {
-    @Published var username = "Test"
-    @Published var id = "12345"
+class UserSettings: ObservableObject {
+    @Published var score = 0
 }
 
-struct EnvironmentView: View {
-    @EnvironmentObject var userEnv: UserEnvironment
-    @State var showOtherView = false
-    
+struct EnvironmentObjectView: View {
+    @EnvironmentObject var settings: UserSettings
+
     var body: some View {
-        VStack {
-            Text(userEnv.username)
-                .onTapGesture {
-                    self.userEnv.username = "aaaaaaaa"
-                    self.showOtherView.toggle()
-                    
-            }.sheet(isPresented: $showOtherView) {
-                OtherView().environmentObject(self.userEnv)
+        NavigationView {
+            VStack {
+                //Environmentのスコアに書き込む
+                Button(action: {
+                    self.settings.score += 1
+                }) {
+                    Text("Increase Score")
+                }
+
+                //DetailView()のイニシャライズ時にUserSettingsの設定がいらない
+                NavigationLink(destination: DetailView()) {
+                    Text("Show Detail View")
+                }
             }
         }
     }
 }
 
-struct OtherView: View {
-    @EnvironmentObject var userEnv: UserEnvironment
+struct DetailView: View {
+    @EnvironmentObject var settings: UserSettings
 
     var body: some View {
-        Text(userEnv.username).onTapGesture {
-            self.userEnv.username = "bbbbbbb"
-        }
+        //Environmentのスコアを表示
+        Text("Score: \(settings.score)")
     }
 }
 ```
 
 一番親のViewを初期化するタイミングでEnvironmentObjectを入れてあげます。
 ```swift
-EnvironmentView().environmentObject(UserEnvironment())
+EnvironmentObjectView().environmentObject(UserSettings())
 ```
+参考：https://www.hackingwithswift.com/quick-start/swiftui/how-to-use-environmentobject-to-share-data-between-views
 
