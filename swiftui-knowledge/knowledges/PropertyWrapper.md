@@ -229,3 +229,19 @@ EnvironmentObjectView().environmentObject(UserSettings())
 ```
 参考：https://www.hackingwithswift.com/quick-start/swiftui/how-to-use-environmentobject-to-share-data-between-views
 
+# FetchRequest
+
+`@FetchRequest`を使うと、CoreDataとSwiftUIのViewを直接結びつけることできます。
+
+宣言時はこんな感じ
+```swift
+@FetchRequest(
+    entity: User.entity(),
+    sortDescriptors: []
+) var users: FetchedResults<User>
+```
+
+詳しくは、以下記事参照
+- https://qiita.com/coe/items/0f0585f314ab2624f548
+- https://note.com/dngri/n/n26e807c880db
+
