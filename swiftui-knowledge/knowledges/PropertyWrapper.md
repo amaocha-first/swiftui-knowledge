@@ -180,6 +180,28 @@ struct ChildView: View {
 }
 ```
 
+# Environment
+
+環境変数を操作するもの。
+以下のようにすると値をViewで読み込める。
+```swift
+struct ContentView: View {
+    @Environment(\.font) var font: Font
+    var body: some View {
+        Text("Hello World")
+    }
+}
+```
+イニシャライズ時に外から渡してあげる。
+```swift
+ContentView()
+        .environment(\.font, .largeTitle)
+```
+
+環境変数は多数あるので、以下記事参照。
+
+参考：https://qiita.com/1amageek/items/59c6bb32a6627b4fb712
+
 # EnvironmentObject
 
 View階層の中で共通のObservableObjectを持てるようにしたもの。
