@@ -267,15 +267,24 @@ https://qiita.com/MaShunzhe/items/40bf67cdd709c17b599f
 # SceneStorage(iOS14以降)
 iOS14以降では複数のSceneが存在していて、それぞれでそのシーンの状態を保存することができる。
 
+例えば、以下は画面遷移をしてもテキストエディターの内容を保存しておく例です。
 ```swift
-struct textTabView: View {
-
-    @SceneStorage("postContent")
-    var postContent = "This is a draft..."
+struct ContentView: View {
+    @SceneStorage("text") var text = ""
 
     var body: some View {
-        TextEditor(text: $postContent)
+        NavigationView {
+            TextEditor(text: $text)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
-
 }
 ```
+
+画面ごとに一意のデータを保存する場合に使用し、UserDefaultsの代わりに復元に使用できる。
+注意点としては、
+- 大量のデータを保存しない。状態の復元に必要なものだけ保存する。
+- 機密データを保存しない。
+- アップスイッチャーでアプリを破棄すると、scence storageの内容も破棄される。
+
+参考：https://www.hackingwithswift.com/quick-start/swiftui/what-is-the-scenestorage-property-wrapper
