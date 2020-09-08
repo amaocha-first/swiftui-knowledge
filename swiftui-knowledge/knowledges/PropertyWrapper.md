@@ -135,8 +135,6 @@ final class ObservedLoginParam: ObservableObject {
 
 上記の`ObservedObservedObject`を使うとViewの表示時に毎回初期化してしまう問題があるので、基本的には`@StateObject`を使うようにします。
 
-`@ObservedObject`で宣言するときは、親Viewで生成された`＠StateObject`が宣言されたObservableObjectを子Viewに渡す時に、子Viewでもその値を読み書きできるようにしたい場合などに使用されます。
-
 ```swift
 final class Counter: ObservableObject {
     @Published var count: Int = 0
